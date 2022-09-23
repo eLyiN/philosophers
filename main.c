@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:53:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/23 15:24:11 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:51:51 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 int	main(int ac, char av[])
 {
-	THISISPRUEBA
+	t_main	philo;
+
+	if (ac <= 6)
+	{
+		parse_av(ac, av[1]);
+	}
+	else
+		return (EXIT_FAILURE);
 }
