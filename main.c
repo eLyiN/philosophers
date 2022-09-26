@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:53:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/26 17:52:03 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:00:06 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ void	parse_arg(int ac, char *av[], t_main *s)
 	{
 		s->nb_philo = ft_atoi(av[0]);
 		s->nb_forks = ft_atoi(av[0]);
-		if (s->nb_philo > MAX_PHILO)
-			error_code("Number of philosophers has exceeded the limit (200).");
 		s->time_to_die = ft_atoi(av[1]);
 		s->time_to_eat = ft_atoi(av[2]);
 		s->time_to_sleep = ft_atoi(av[3]);
 		s->nb_times_ph_eat = 0;
 		s->first_time = timestamp();
+		pthread_mutex_init(s->print_lock, NULL);
 		s->nb_died = 0;
 		if (s->nb_philo < 2 || s->time_to_die < 0 || s->time_to_eat < 0
 			|| s->time_to_sleep < 0)
@@ -99,6 +98,7 @@ void	init_threads(t_main *s)
 
 	i = 0;
 	ph = s->philosopher;
+	pthread_mutex_init(&s->start_lock, NULL);
 	pthread_mutex_lock(&s->start_lock);
 	while (i < s->nb_philo)
 	{
