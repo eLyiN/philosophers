@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:53:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/26 18:00:06 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:01:12 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_arg(int ac, char *av[], t_main *s)
 		s->time_to_sleep = ft_atoi(av[3]);
 		s->nb_times_ph_eat = 0;
 		s->first_time = timestamp();
-		pthread_mutex_init(s->print_lock, NULL);
+		pthread_mutex_init(&s->print_lock, NULL);
 		s->nb_died = 0;
 		if (s->nb_philo < 2 || s->time_to_die < 0 || s->time_to_eat < 0
 			|| s->time_to_sleep < 0)
