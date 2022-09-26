@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 14:51:21 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/24 10:15:40 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:45:05 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int				philo_id;
-	t_states		state;
+	int				eat_times;
+	long long		last_meal;
+	t_states		states;
 	pthread_t		thread;
 	t_fork			fork;
+	pthread_mutex_t	eat_lock;
 	struct s_main	*main;
 }					t_philo;
 
@@ -55,14 +58,19 @@ typedef struct s_main
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_times_ph_eat;
+	int				nb_died;
+	long long		first_time;
 	t_philo			*philosopher;
-
+	pthread_mutex_t	start_lock;
+	pthread_mutex_t	print_lock;
+	pthread
 }					t_main;
 
 // Utils
 
 int					ft_atoi(const char *str);
 void				error_code(char *str);
-int					ft_isdigit(int c);
+long long			timestamp(void);
+void				print_log(t_philo *ph, long long timestamp, t_states state);
 
 #endif

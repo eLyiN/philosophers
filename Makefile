@@ -6,19 +6,30 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 14:51:38 by aarribas          #+#    #+#              #
-#    Updated: 2022/09/23 16:01:57 by aarribas         ###   ########.fr        #
+#    Updated: 2022/09/26 17:53:10 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
+CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-SRCS	=	$(shell find .inname "*.c")
+SRCS	=	$(shell find ./ -iname "*.c")
 OBJS	=	${SRCS:.c=.o}
+INCLUDE	=	-lpthread
 
-all	:	
+all	:	$(NAME)
+
+$(NAME) : $(OBJS)
+			$(CC) $(CFLAGS) $(OBJS) $(INCLUDE) -o $(NAME)
+
 clean	:	
-fclean	:	
-re	:	
+			rm -rf $(OBJS)
+
+fclean	:	clean
+			rm -rf $(NAME)
+
+re	:	clean all
+
 bonus	:	
 
 .PHONY:	all, clean, fclean, re, bonus
