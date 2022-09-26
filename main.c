@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:53:10 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/26 18:01:12 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:14:18 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,18 @@
 
 void	parse_arg(int ac, char *av[], t_main *s)
 {
-	if (ac == 4)
-	{
-		s->nb_philo = ft_atoi(av[0]);
-		s->nb_forks = ft_atoi(av[0]);
-		s->time_to_die = ft_atoi(av[1]);
-		s->time_to_eat = ft_atoi(av[2]);
-		s->time_to_sleep = ft_atoi(av[3]);
-		s->nb_times_ph_eat = 0;
-		s->first_time = timestamp();
-		pthread_mutex_init(&s->print_lock, NULL);
-		s->nb_died = 0;
-		if (s->nb_philo < 2 || s->time_to_die < 0 || s->time_to_eat < 0
-			|| s->time_to_sleep < 0)
-			error_code("Arguments are invalid.");
-	}
+	s->nb_philo = ft_atoi(av[0]);
+	if (s->nb_philo < 1)
+		error_code("Argument number 1 must be greater than 1.");
+	s->time_to_die = ft_atoi(av[1]);
+	if (s->time_to_die < 0)
+		error_code("Argument number 2 must be greater than 0.");
+	s->time_to_eat = ft_atoi(av[2]);
+	if (s->time_to_eat < 0)
+		error_code("Argument number 3 must be greater than 0.");
+	s->time_to_sleep = ft_atoi(av[3]);
+	if (s->time_to_sleep < 0)
+		error_code("Argument number 4 must be greater than 0.");
 	if (av[4])
 	{
 		s->nb_times_ph_eat = ft_atoi(av[4]);
@@ -37,6 +34,10 @@ void	parse_arg(int ac, char *av[], t_main *s)
 	}
 	else
 		s->nb_times_ph_eat = -1;
+	s->nb_times_ph_eat = 0;
+	s->first_time = timestamp();
+	pthread_mutex_init(&s->print_lock, NULL);
+	s->nb_died = 0;
 }
 
 int	init_philos(t_main *s)
