@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:57:38 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/26 17:42:33 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:24:12 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,27 @@ long long	timestamp(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	print_log(t_philo *ph, long long timestamp, t_states state)
+long long	diff_time(long long t_past, long long t_present)
 {
+	return (t_present - t_past);
+}
+
+void	print_log(t_philo *ph, t_states state)
+{
+	long long	time_calc;
+
+	time_calc = timestamp() - ph->main->first_time;
 	pthread_mutex_lock(&ph->main->print_lock);
 	if (state == TAKEN_FORK)
-		printf("%lld %d has taken a fork\n", timestamp, &ph->philo_id);
+		printf("%lld %d has taken a fork\n", time_calc, ph->philo_id);
 	else if (state == DIED)
-		printf("%lld %d died\n", timestamp, &ph->philo_id);
+		printf("%lld %d died\n", time_calc, ph->philo_id);
 	else if (state == SLEEPING)
-		printf("%lld %d is sleeping\n", timestamp, &ph->philo_id);
+		printf("%lld %d is sleeping\n", time_calc, ph->philo_id);
 	else if (state == EATING)
-		printf("%lld %d is eating\n", timestamp, &ph->philo_id);
+		printf("%lld %d is eating\n", time_calc, ph->philo_id);
 	else if (state == THINKING)
-		printf("%lld %d is thinking\n", timestamp, &ph->philo_id);
-	pthread_mutex_lock(&ph->main->print_lock);
+		printf("%lld %d is thinking\n", time_calc, ph->philo_id);
+	pthread_mutex_unlock(&ph->main->print_lock);
+	return ;
 }
