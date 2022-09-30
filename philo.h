@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 14:51:21 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/27 21:26:08 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/10/01 00:27:02 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define MAX_PHILO 200
-
 typedef enum e_states
 {
 	EATING,
@@ -31,21 +29,15 @@ typedef enum e_states
 	DIED,
 }					t_states;
 
-typedef struct s_fork
-{
-	int				fork_left;
-	int				fork_right;
-
-}					t_fork;
-
 typedef struct s_philo
 {
 	int				philo_id;
 	int				eat_times;
 	long long		last_meal;
-	t_states		states;
-	pthread_t		thread;
-	t_fork			fork;
+	int				fork_left;
+	int				fork_right;
+	pthread_t		*thread;
+	pthread_mutex_t	*mut_fork;
 	struct s_main	*main;
 }					t_philo;
 
@@ -55,13 +47,9 @@ typedef struct s_main
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_times_ph_eat;
+	int				times_must_eat;
 	int				nb_died;
 	long long		first_time;
-	t_philo			philosopher[MAX_PHILO];
-	pthread_mutex_t	mut_fork[MAX_PHILO];
-	pthread_mutex_t	eating;
-	pthread_mutex_t	start_lock;
 	pthread_mutex_t	print_lock;
 }					t_main;
 
@@ -72,5 +60,15 @@ void				error_code(char *str);
 long long			timestamp(void);
 void				print_log(t_philo *ph, t_states state);
 long long			diff_time(long long t_past, long long t_present);
+
+// Inits.c
+
+int					init_threads(t_main *s, pthread_t *th, t_philo *ph);
+void				init_mutex(t_main *s, t_philo *ph);
+int					init_philos(t_main *s, t_philo *p);
+
+// Routine.c
+
+void				*routine(void *param);
 
 #endif

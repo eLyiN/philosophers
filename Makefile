@@ -6,13 +6,13 @@
 #    By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 14:51:38 by aarribas          #+#    #+#              #
-#    Updated: 2022/09/27 13:11:53 by aarribas         ###   ########.fr        #
+#    Updated: 2022/09/30 23:40:20 by aarribas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address 
 SRCS	=	$(shell find ./ -iname "*.c")
 OBJS	=	${SRCS:.c=.o}
 INCLUDE	=	-lpthread

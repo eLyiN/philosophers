@@ -6,7 +6,7 @@
 /*   By: aarribas <aarribas@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:57:38 by aarribas          #+#    #+#             */
-/*   Updated: 2022/09/27 21:24:12 by aarribas         ###   ########.fr       */
+/*   Updated: 2022/09/30 12:09:53 by aarribas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ void	print_log(t_philo *ph, t_states state)
 	time_calc = timestamp() - ph->main->first_time;
 	pthread_mutex_lock(&ph->main->print_lock);
 	if (state == TAKEN_FORK)
-		printf("%lld %d has taken a fork\n", time_calc, ph->philo_id);
+		printf("%lld %d has taken a fork\n", time_calc, ph->philo_id + 1);
 	else if (state == DIED)
-		printf("%lld %d died\n", time_calc, ph->philo_id);
+		printf("%lld %d died\n", time_calc, ph->philo_id + 1);
 	else if (state == SLEEPING)
-		printf("%lld %d is sleeping\n", time_calc, ph->philo_id);
+		printf("%lld %d is sleeping\n", time_calc, ph->philo_id + 1);
 	else if (state == EATING)
-		printf("%lld %d is eating\n", time_calc, ph->philo_id);
+		printf("%lld %d is eating\n", time_calc, ph->philo_id + 1);
 	else if (state == THINKING)
-		printf("%lld %d is thinking\n", time_calc, ph->philo_id);
+		printf("%lld %d is thinking\n", time_calc, ph->philo_id + 1);
 	pthread_mutex_unlock(&ph->main->print_lock);
 	return ;
 }
